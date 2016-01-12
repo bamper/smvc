@@ -1,0 +1,26 @@
+{
+  "name": "himik_od_ua/smvc",
+  "description": "Simple MVC framework based on Symfony components",
+  "license": "MIT",
+  "keywords": ["mvc"],
+  "authors": [
+    {
+      "name": "Ruslan Evchev",
+      "email": "aion.planet.com@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/class-loader": "3.0.*",
+    "symfony/http-foundation": "3.0.*",
+    "symfony/debug": "3.0.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SMVC\\": "vendor/SMVC",
+      "App\\": "app"
+    }
+  }
+}
