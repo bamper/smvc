@@ -121,6 +121,11 @@ class Router
         return self::$_instance;
     }
 
+    /**
+     * For static router rules
+     * @param $path
+     * @return mixed
+     */
     private function getStaticRoute($path)
     {
         return static::$route_collection[$path];
