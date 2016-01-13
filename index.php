@@ -12,6 +12,6 @@ $bootstrap = new Bootstrap();
 $bootstrap->run();
 
 Router::get('/main/edit', 'MainController@edit');
-Router::post('/', 'MainController@index');
+Router::get('/', 'MainController@index');
 
 Router::getInstance();

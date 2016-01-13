@@ -23,5 +23,9 @@ class Bootstrap
     {
         $this->core['view'] = new View();
         $this->core['query'] = new Query();
+        $this->core['db'] = new \PDO('mysql:host=localhost;port=3306;dbname=laravel;charset=utf8', 'root', '123456', array(
+            \PDO::ATTR_EMULATE_PREPARES => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        ));
     }
 }
