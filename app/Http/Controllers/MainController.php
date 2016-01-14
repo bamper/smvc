@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\RixiFixture;
+use App\Http\Models\TableSpam;
 use SMVC\Core\Registry\Registry;
 use App\Http\Models\SimpleTable;
 
@@ -12,7 +12,7 @@ class MainController
     {
         $view = Registry::get('view');
         $table = new SimpleTable();
-        $database = new RixiFixture();
+        $database = new TableSpam();
         $data = $table->createDataTable()->getTable();
         foreach($data as $row)
         {
@@ -30,13 +30,13 @@ class MainController
         $view->display('main/index.php');
     }
 
-    public function rixi()
+    public function bigtable()
     {
         $view = Registry::get('view');
-        $rixi = new RixiFixture();
+        $rixi = new TableSpam();
         //$result = $rixi->rixiSelect()->rixiWhere('priority', 13211)->rixiAnd('template_id', 1231231)->execute();
 
-        $result = $rixi->rixiSelect()->rixiRawSql(' WHERE factory_id > 100 ')->execute();
+        $result = $rixi->all()->execute();//rixiSelect()->rixiRawSql(' WHERE factory_id > 100 ')->execute();
         $view->assign('table', $result);
         $view->display('main/index.php');
         //print_r($result);

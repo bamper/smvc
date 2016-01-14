@@ -4,7 +4,7 @@ namespace App\Http\Models;
 
 use SMVC\Core\Rixi;
 
-class RixiFixture extends Rixi\Rixi
+class TableSpam extends Rixi\Rixi
 {
     protected $table = 'factories';
 

@@ -159,10 +159,10 @@ class Router
      */
     private function route($controller, $method)
     {
-        if(!call_user_func(array($controller, $method)))
+        if(call_user_func(array($controller, $method)) == false)
         {
             $request = Request::createFromGlobals();
-            //new Exception\NotFoundException($request->getPathInfo());
+            new Exception\NotFoundException($request->getPathInfo());
         }
 
     }
