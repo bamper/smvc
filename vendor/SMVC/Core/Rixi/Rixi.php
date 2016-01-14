@@ -9,9 +9,9 @@ class Rixi
 
     private $db;
 
-    private $raw_table;
+    private $raw_table = array();
 
-    private $structure;
+    private $structure = array();
 
     protected $data_types = array(
         'int' => 'integer',
@@ -31,7 +31,7 @@ class Rixi
     {
         $this->up();
         $this->getRawData();
-
+        $this->createStructure();
     }
 
     public function up()
@@ -46,19 +46,37 @@ class Rixi
 
     private function getRawData()
     {
-        $stm = $this->db->prepare("SHOW COLUMNS FROM " . $this->table . " ");
+        $stm = $this->db->prepare("SELECT * FROM  " . $this->table . " ");
         $stm->execute();
-        $this->raw_table = $stm->columnCount();
-
+        for($i = 0; $i < $stm->columnCount(); $i++)
+        {
+            $this->raw_table[] = $stm->getColumnMeta($i);
+        }
+        return $this->raw_table;
     }
 
 
-    protected function parseColumn($column_type)
+
+    protected function createStructure()
     {
-
+        if(!empty($this->raw_table))
+        {
+            foreach($this->raw_table as $table)
+            {
+                $this->structure[$table['name']]['name'] = $table['name'];
+                $this->structure[$table['name']]['nullable'] = ($table['flags'][0] == 'not_null') ? false : true;
+                $this->structure[$table['name']]['key'] = (strpos($table['flags'][1], 'key') === false) ? false : true;
+            }
+        }
+        return $this;
     }
 
-    public function getTable()
+    public function getStructure()
+    {
+        return $this->structure;
+    }
+
+    public function getRawTable()
     {
         return $this->raw_table;
     }

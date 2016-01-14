@@ -18,6 +18,7 @@ class MainController
 
     public function rixi()
     {
-        var_dump(new RixiFixture());
+        $rixi = new RixiFixture();
+        var_dump($rixi->getStructure());
     }
 }
