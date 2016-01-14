@@ -3,25 +3,16 @@
 namespace SMVC\Core\Rixi;
 
 use SMVC\Core\Kernel;
+use SMVC\Core\Rixi\QueryBuilder;
 
-class Rixi
+class Rixi extends QueryBuilder
 {
 
-    private $db;
+    public $db;
 
     private $raw_table = array();
 
     private $structure = array();
-
-    protected $data_types = array(
-        'int' => 'integer',
-        'float' => 'float',
-        'varchar' => 'string',
-        'boolean' => 'bool',
-        'text' => 'string',
-        'bigint' => 'integer',
-        'tinyint' => 'integer'
-    );
 
     protected $table = '';
 

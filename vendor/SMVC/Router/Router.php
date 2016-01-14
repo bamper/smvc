@@ -162,7 +162,7 @@ class Router
         if(!call_user_func(array($controller, $method)))
         {
             $request = Request::createFromGlobals();
-            new Exception\NotFoundException($request->getPathInfo());
+            //new Exception\NotFoundException($request->getPathInfo());
         }
 
     }

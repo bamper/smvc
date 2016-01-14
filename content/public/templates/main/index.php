@@ -9,15 +9,12 @@
                 <thead>
                     <tr>
                         <?php
-                        $count = count($table[0]);
-                        $i = 1;
-                        while($count > 0)
+                        $count = array_keys($table[0]);
+                        foreach($count as $name)
                         {
                             echo "<th>";
-                            echo $i;
+                            echo $name;
                             echo "</th>";
-                            $count--;
-                            $i++;
                         }
                         ?>
                     </tr>

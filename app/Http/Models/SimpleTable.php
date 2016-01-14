@@ -6,7 +6,7 @@ class SimpleTable
 {
     public $table = array();
 
-    public function createDataTable($cols = 10, $rows = 1000)
+    public function createDataTable($cols = 7, $rows = 1000)
     {
         $row = array();
         for($i = 0; $i < $rows; $i++)
