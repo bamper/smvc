@@ -10,9 +10,11 @@ class Rixi extends QueryBuilder
 
     public $db;
 
-    private $raw_table = array();
+    protected $raw_table = array();
 
-    private $structure = array();
+    protected $structure = array();
+
+    protected $table_prefix = '';
 
     protected $table = '';
 
@@ -20,9 +22,11 @@ class Rixi extends QueryBuilder
 
     public function __construct()
     {
+        $this->setupTablePrefix();
         $this->up();
         $this->getRawData();
         $this->createStructure();
+        $this->setupStructure();
     }
 
     public function up()
@@ -46,8 +50,6 @@ class Rixi extends QueryBuilder
         return $this->raw_table;
     }
 
-
-
     protected function createStructure()
     {
         if(!empty($this->raw_table))
@@ -57,6 +59,7 @@ class Rixi extends QueryBuilder
                 $this->structure[$table['name']]['name'] = $table['name'];
                 $this->structure[$table['name']]['nullable'] = ($table['flags'][0] == 'not_null') ? false : true;
                 $this->structure[$table['name']]['key'] = (strpos($table['flags'][1], 'key') === false) ? false : true;
+                $this->structure[$table['name']]['auto_increment'] = (strpos($table['flags'][1], 'key') === false) ? false : true;
             }
         }
         return $this;
@@ -70,6 +73,23 @@ class Rixi extends QueryBuilder
     public function getRawTable()
     {
         return $this->raw_table;
+    }
+
+    private function setupTablePrefix()
+    {
+        $this->table = $this->table_prefix.$this->table;
+    }
+
+    private function setupStructure()
+    {
+        if(!empty($this->structure))
+        {
+            foreach(array_keys($this->structure) as $column)
+            {
+                $this->$column;
+            }
+        }
+        return $this;
     }
 
 }

@@ -6,7 +6,7 @@ class View
 {
     private $env = array();
 
-    private $storage = 'content/public/templates/';
+    private $storage;
 
     public function __construct(){}
 
@@ -18,7 +18,17 @@ class View
     public function display($template)
     {
         extract($this->env);
-        include $this->storage.$template;
+        include '../view/public/templates/'.$template;
         exit;
+    }
+
+    public function callStatic($method)
+    {
+        return $this->$method();
+    }
+
+    private function getStorage()
+    {
+        include '../view/public/templates/';
     }
 }

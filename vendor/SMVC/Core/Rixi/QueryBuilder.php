@@ -66,7 +66,7 @@ class QueryBuilder
         $this->query_insert = "INSERT INTO " . $this->table . " SET ";
         foreach($values as $key => $value)
         {
-            $to_set[] = implode(" = ", array($key, $value));
+            $to_set[] = implode(" = ", array($key, "'$value'"));
         }
         $this->query_insert .= implode(', ', $to_set);
         return $this;
@@ -74,13 +74,27 @@ class QueryBuilder
 
     public function execute()
     {
-        if(!empty($this->where))
-            $this->query .= $this->where;
-        $this->query = empty($this->query_insert) ? $this->query : $this->query_insert;
-        $result = empty($this->query_insert) ?
-            $this->db->query($this->query)->fetchAll(\PDO::FETCH_ASSOC) :
-            $this->db->query($this->query);
-        return $result;
+        $this->db->query($this->query_insert);
+    }
+
+    public function fetch(\PDO $const)
+    {
+        return $this->db->query($this->query)->fetchAll(empty($const) ? \PDO::FETCH_ASSOC : $const);
+    }
+
+    public function save()
+    {
+        $columns = array();
+        foreach(array_keys($this->structure) as $column)
+        {
+            if($column == $this->primaryKey)
+                continue;
+            $columns[$column] = !isset($this->$column) ? '' : $this->$column;
+        }
+        if(!empty($columns))
+        {
+            $this->rixiInsert($columns)->execute();
+        }
     }
 
     public function __toString()
