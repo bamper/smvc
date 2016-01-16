@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\User;
 use Symfony\Component\HttpFoundation\Request;
 use SMVC\Core\Kernel\CSRF;
 
 class LoginController extends Controller
 {
-    public function edit()
-    {
-
-    }
-
     public function index()
     {
         return self::render([], 'login/index.php');
@@ -22,7 +18,8 @@ class LoginController extends Controller
         $request = Request::createFromGlobals();
         if(CSRF::validate($request->request->all()))
         {
-            print_r(json_encode(['login' => true]));
+            $user = new User();
+            $user->validateLogin($request->request->get('login'));
         }
         else
         {
