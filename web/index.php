@@ -1,5 +1,6 @@
 <?php
 include '../vendor/autoload.php';
+error_reporting(1);
 ini_set('display_errors', 1);
 
 use Symfony\Component\Debug;
@@ -11,7 +12,8 @@ Debug\Debug::enable(1);
 $bootstrap = new Bootstrap();
 $bootstrap->run();
 
-Router::get('/main/edit', 'MainController@edit');
-Router::get('/', 'MainController@index');
+Router::get('', 'LoginController@index');
+Router::get('/', 'LoginController@index');
+//Router::get('/login/login', 'LoginController@login');
 
 Router::getInstance();

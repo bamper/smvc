@@ -2,6 +2,8 @@
 
 namespace SMVC\Router;
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MainController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Attribute;
 use SMVC\Core\Query\Query;
@@ -102,7 +104,7 @@ class Router
             if($static_path['method'] == $method)
                 $this->route($this->default_namespace . $static_path['controller'], $static_path['action']);
             else
-                new Exception\RouteErrorException('Its route only for ' . $method . ' method');
+                new Exception\RouteErrorException('Its route only for ' . $static_path['method'] . ' method');
         }
 
 
