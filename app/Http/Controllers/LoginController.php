@@ -26,7 +26,7 @@ class LoginController extends Controller
         }
         else
         {
-            print_r('no');
+            print_r('access');
         }
         return true;
     }
