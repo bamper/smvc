@@ -1,13 +1,10 @@
 <?php
 
 use SMVC\Core\View\HtmlHelper;
-
-HtmlHelper::drawAppHead();
-HtmlHelper::drawAppSidebar();
-
+//HtmlHelper::drawAppHead();
+//HtmlHelper::drawAppSidebar();
 ?>
 
 <?php
-
-HtmlHelper::drawAppFooter();
+//HtmlHelper::drawAppFooter();
 ?>

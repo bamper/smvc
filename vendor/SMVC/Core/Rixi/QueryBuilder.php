@@ -77,7 +77,7 @@ class QueryBuilder
         $this->db->query($this->query_insert);
     }
 
-    public function fetch(\PDO $const)
+    public function fetch($const)
     {
         return $this->db->query($this->query)->fetchAll(empty($const) ? \PDO::FETCH_ASSOC : $const);
     }
