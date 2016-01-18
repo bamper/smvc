@@ -2,6 +2,7 @@
 
 namespace SMVC\Core\View;
 
+use SMVC\Core\View\HtmlHelper;
 class View
 {
     private $env = array();
@@ -15,10 +16,19 @@ class View
         $this->env[$name] = $value;
     }
 
-    public function display($template)
+    public function display($template, $require = false)
     {
         extract($this->env);
+        if($require)
+        {
+            include self::$storage.HtmlHelper::$layout_app_head;
+            include self::$storage.HtmlHelper::$layout_app_sidebar;
+        }
         include self::$storage.$template;
+        if($require)
+        {
+            include self::$storage.HtmlHelper::$layout_app_footer;
+        }
         exit;
     }
 }

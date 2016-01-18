@@ -14,6 +14,6 @@ $bootstrap->run();
 
 Router::get('', 'LoginController@index');
 Router::get('/', 'LoginController@index');
-//Router::get('/login/login', 'LoginController@login');
+Router::post('/login/login', 'LoginController@login');
 
 Router::getInstance();

@@ -69,13 +69,13 @@ use SMVC\Core\Kernel\CSRF;
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" name="login" placeholder="Username" />
+															<input type="text" required="" class="form-control" name="login" placeholder="Username" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                             </label>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" name="password" placeholder="Password" />
+															<input type="password" class="form-control" required="" name="password" placeholder="Password" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
@@ -151,6 +151,39 @@ use SMVC\Core\Kernel\CSRF;
                                 </div>
                             </div><!-- /.widget-body -->
                         </div><!-- /.forgot-box -->
+                        <div id="my-modal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h3 class="smaller lighter blue no-margin">A modal with a slider in it!</h3>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Some content
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        1
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        2
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+                                            <i class="ace-icon fa fa-times"></i>
+                                            Close
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
                     </div><!-- /.position-relative -->
                 </div>
             </div><!-- /.col -->
@@ -184,7 +217,12 @@ use SMVC\Core\Kernel\CSRF;
 <script type="text/javascript">
     if('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
-
+<script type="text/javascript">
+    function show_modal()
+    {
+        $("#my-modal").display('block');
+    }
+</script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function($) {
