@@ -43,7 +43,6 @@ class Authenticatable
 
     public function setIdentity($login, $user_id, $role)
     {
-        $time = time()+60*60*24*2;
         $crypt = new Crypt();
         $_SESSION[$this->session_user_id] = $crypt->crypt($user_id)->crypted;
         $_SESSION[$this->session_user_login] = $crypt->crypt($login)->crypted;
