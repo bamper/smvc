@@ -2,6 +2,7 @@
 
 namespace SMVC\Router;
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use Symfony\Component\HttpFoundation\Request;
@@ -161,11 +162,13 @@ class Router
      */
     private function route($controller, $method)
     {
-        if(call_user_func(array($controller, $method)) == false)
-        {
-            $request = Request::createFromGlobals();
-            new Exception\NotFoundException($request->getPathInfo());
-        }
+        $controller = new $controller;
+        $controller->$method();
+//        if(call_user_func(array($controller, $method)) == false)
+//        {
+//            $request = Request::createFromGlobals();
+//            new Exception\NotFoundException($request->getPathInfo());
+//        }
 
     }
 

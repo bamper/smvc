@@ -9,9 +9,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        $identity = Authenticatable::getInstance()->getIdentity();
-        return self::render([
-
-        ], 'main/index.php', true);
+        return self::render([], 'main/index.php', true, 'dashboard');
     }
 }

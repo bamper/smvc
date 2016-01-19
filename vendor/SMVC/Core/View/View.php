@@ -3,6 +3,7 @@
 namespace SMVC\Core\View;
 
 use SMVC\Core\View\HtmlHelper;
+
 class View
 {
     private $env = array();

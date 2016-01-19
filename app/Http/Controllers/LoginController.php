@@ -11,6 +11,11 @@ use SMVC\Core\View\HtmlHelper;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+
+    }
+
     public function index()
     {
         return self::render([], 'login/index.php');
@@ -38,7 +43,7 @@ class LoginController extends Controller
             }
             else
             {
-                print_r('no csrf');
+                //TODO: Обрабатывать CSRF
             }
         }
         else
