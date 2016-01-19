@@ -13,7 +13,6 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-
     }
 
     public function index()
@@ -26,7 +25,7 @@ class LoginController extends Controller
         $auth = Authenticatable::getInstance();
         $request = Request::createFromGlobals();
         $identity = $auth->getIdentity();
-        $redirect = new RedirectResponse('/main/index');
+        $redirect = new RedirectResponse('/site/index');
 
         if(!$identity[$auth->session_auth])
         {
@@ -43,7 +42,7 @@ class LoginController extends Controller
             }
             else
             {
-                //TODO: Обрабатывать CSRF
+                //TODO: Обрабатывать CSRF->false
             }
         }
         else
