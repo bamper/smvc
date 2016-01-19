@@ -11,6 +11,10 @@ use SMVC\Core\View\HtmlHelper;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+    }
+
     public function index()
     {
         return self::render([], 'login/index.php');
@@ -21,7 +25,7 @@ class LoginController extends Controller
         $auth = Authenticatable::getInstance();
         $request = Request::createFromGlobals();
         $identity = $auth->getIdentity();
-        $redirect = new RedirectResponse('/main/index');
+        $redirect = new RedirectResponse('/site/index');
 
         if(!$identity[$auth->session_auth])
         {
@@ -38,7 +42,7 @@ class LoginController extends Controller
             }
             else
             {
-                print_r('no csrf');
+                //TODO: Обрабатывать CSRF->false
             }
         }
         else

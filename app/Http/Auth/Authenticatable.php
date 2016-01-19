@@ -30,15 +30,18 @@ class Authenticatable
     private function __construct(){}
     private function __clone(){}
 
-    public function getIdentity()
+    public function getIdentity($key = null)
     {
         $crypt = new Crypt();
-        return array(
+        $_identity = array(
             'auth' => isset($_SESSION[$this->session_auth]),
             'login' => isset($_SESSION[$this->session_user_login]) ? $crypt->decrypt($_SESSION[$this->session_user_login])->decrypted : null,
             'user_id' => isset($_SESSION[$this->session_user_id]) ? $crypt->decrypt($_SESSION[$this->session_user_id])->decrypted : null,
             'role' => isset($_SESSION[$this->session_user_role]) ? $crypt->decrypt($_SESSION[$this->session_user_role])->decrypted : null
         );
+        if(empty($key))
+            return $_identity;
+        return $_identity[$key];
     }
 
     public function setIdentity($login, $user_id, $role)
