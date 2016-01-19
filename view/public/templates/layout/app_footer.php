@@ -54,7 +54,10 @@
 <!-- ace scripts -->
 <script src="/assets/js/ace-elements.min.js"></script>
 <script src="/assets/js/ace.min.js"></script>
-
+<script src="/assets/js/validator.js"></script>
+<script>
+    $('#user_add_form').validator()
+</script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function($) {

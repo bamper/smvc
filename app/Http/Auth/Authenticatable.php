@@ -2,7 +2,6 @@
 
 namespace App\Http\Auth;
 
-use SMVC\Core\Kernel\Crypt;
 
 session_start();
 
@@ -32,12 +31,11 @@ class Authenticatable
 
     public function getIdentity($key = null)
     {
-        $crypt = new Crypt();
         $_identity = array(
             'auth' => isset($_SESSION[$this->session_auth]),
-            'login' => isset($_SESSION[$this->session_user_login]) ? $crypt->decrypt($_SESSION[$this->session_user_login])->decrypted : null,
-            'user_id' => isset($_SESSION[$this->session_user_id]) ? $crypt->decrypt($_SESSION[$this->session_user_id])->decrypted : null,
-            'role' => isset($_SESSION[$this->session_user_role]) ? $crypt->decrypt($_SESSION[$this->session_user_role])->decrypted : null
+            'login' => isset($_SESSION[$this->session_user_login]) ? $_SESSION[$this->session_user_login] : null,
+            'user_id' => isset($_SESSION[$this->session_user_id]) ? $_SESSION[$this->session_user_id] : null,
+            'role' => isset($_SESSION[$this->session_user_role]) ? $_SESSION[$this->session_user_role] : null
         );
         if(empty($key))
             return $_identity;
@@ -46,10 +44,9 @@ class Authenticatable
 
     public function setIdentity($login, $user_id, $role)
     {
-        $crypt = new Crypt();
-        $_SESSION[$this->session_user_id] = $crypt->crypt($user_id)->crypted;
-        $_SESSION[$this->session_user_login] = $crypt->crypt($login)->crypted;
-        $_SESSION[$this->session_user_role] = $crypt->crypt($role)->crypted;
+        $_SESSION[$this->session_user_id] = $user_id;
+        $_SESSION[$this->session_user_login] = $login;
+        $_SESSION[$this->session_user_role] = $role;
         $_SESSION[$this->session_auth] = true;
     }
 

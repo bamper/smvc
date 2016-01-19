@@ -12,6 +12,8 @@ class QueryBuilder
 
     public $where;
 
+    public $and;
+
     public function all()
     {
         $this->query = "SELECT * FROM " . $this->table;
@@ -22,19 +24,18 @@ class QueryBuilder
     {
         $where = ' WHERE ' . $this->primaryKey . " = " . $id;
         $this->query = "SELECT * FROM " . $this->table . $where;
+        return $this;
     }
 
     public function rixiWhere($key, $value)
     {
-        if(!empty($this->where))
-            return false;
-        $this->where = " WHERE " . $key . " = ".$value;
+        $this->query .= " WHERE " . $key . " = '".$value."' ";
         return $this;
     }
 
     public function rixiRawSql($sql)
     {
-        if(empty($sql) || empty($this->query))
+        if(empty($sql))
             return false;
         $this->query .= " ".$sql;
         return $this;
@@ -52,7 +53,7 @@ class QueryBuilder
     {
         if(empty($this->where))
             return false;
-        $this->where .= " AND " . $key ." = ".$value;
+        $this->and = " AND " . $key ." = ".$value;
         return $this;
     }
 
@@ -79,7 +80,20 @@ class QueryBuilder
 
     public function fetch($const = null)
     {
+
+        $this->buildQuery();
         return $this->db->query($this->query)->fetchAll(empty($const) ? \PDO::FETCH_ASSOC : $const);
+    }
+
+    private function buildQuery()
+    {
+        return;
+        if(!empty($this->query))
+        {
+            if(!empty($this->and))
+                $this->query .= $this->and;
+        }
+
     }
 
     public function save()
@@ -99,6 +113,7 @@ class QueryBuilder
 
     public function __toString()
     {
+        $this->buildQuery();
         return $this->query;
     }
 }

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Auth\Authenticatable;
+use App\Http\Middleware\Middleware;
 use SMVC\Core\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class Controller
+class Controller extends Middleware
 {
+    protected $secure = array(1, 2, 3);
+
     public static $title = 'Dashboard';
 
     public static $menu = [
@@ -16,7 +19,7 @@ class Controller
             'route' => '/main/index',
             'name' => 'Dashboard',
             'fa_icon' => 'fa-tachometer',
-            'role' => 3
+            'role' => 1
         ],
         'user_control' => [
             'active' => '',
@@ -30,7 +33,7 @@ class Controller
             'route' => '/satellite/index',
             'name' => 'Satellites',
             'fa_icon' => 'fa-space-shuttle',
-            'role' => 1
+            'role' => 2
         ]
     ];
 
@@ -43,6 +46,7 @@ class Controller
         {
             RedirectResponse::create('/')->send();
         }
+        parent::__construct();
     }
 
     public function render(array $values, $template = '', $require_layout = false, $active_menu = 'dashboard')

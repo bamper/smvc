@@ -4,7 +4,6 @@ namespace App\Http\Models;
 
 use App\Http\Auth\Authenticatable;
 use SMVC\Core\Rixi;
-use SMVC\Core\Kernel\Crypt;
 
 class User extends Rixi\Rixi
 {
@@ -32,8 +31,7 @@ class User extends Rixi\Rixi
     public function login($login, $password)
     {
         $result = $this->validateLogin($login);
-        $crypt = new Crypt();
-        $auth = $this->uncryptPassword($crypt->crypt($password)->crypted, $result[0]['password']);
+        $auth = $this->uncryptPassword($password, $result[0]['password']);
         if($auth)
         {
             Authenticatable::getInstance()->setIdentity(
@@ -50,7 +48,9 @@ class User extends Rixi\Rixi
     {
         $result = $this->rixiSelect(['login', 'password', 'user_id', 'role'])->rixiWhere('login', $login)->fetch(\PDO::FETCH_ASSOC);
         if(!empty($result[0]['login']) && $result[0]['login'] == $login)
+        {
             return $result;
+        }
         return false;
     }
 
@@ -64,12 +64,12 @@ class User extends Rixi\Rixi
 
     private function cryptPassword($password)
     {
-        return md5(sha1(md5($password)));
+        return md5(base64_encode(pack('H*', sha1($password))));
     }
 
     private function uncryptPassword($password, $crypto)
     {
-        return md5(sha1(md5($password))) == $crypto;
+        return md5(base64_encode(pack('H*', sha1($password)))) == $crypto;
     }
 
     private function generateAccessToken()
