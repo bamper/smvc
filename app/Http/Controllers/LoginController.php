@@ -7,7 +7,6 @@ use App\Http\Models\User;
 use Symfony\Component\HttpFoundation\Request;
 use SMVC\Core\Kernel\CSRF;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use SMVC\Core\View\HtmlHelper;
 
 class LoginController extends Controller
 {

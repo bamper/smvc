@@ -32,5 +32,6 @@
                 <?php endforeach?>
             </tbody>
         </table>
+        <a href="/user/add" class="btn bg-success">Create new user</a>
     </div>
 </div>
