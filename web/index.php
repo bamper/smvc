@@ -17,5 +17,6 @@ Router::get('/', 'LoginController@index');
 Router::post('/login/login', 'LoginController@login');
 Router::get('/site/index', 'MainController@index');
 Router::post('/user/create', 'UserController@create');
+Router::post('/user/update', 'UserController@update');
 
 Router::getInstance();

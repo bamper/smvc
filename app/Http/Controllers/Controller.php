@@ -6,6 +6,7 @@ use App\Http\Auth\Authenticatable;
 use App\Http\Middleware\Middleware;
 use SMVC\Core\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class Controller extends Middleware
 {
@@ -74,5 +75,17 @@ class Controller extends Middleware
             if($identity['role'] >= $menu_item['role'])
                 self::$to_draw[] = $menu_item;
         }
+    }
+
+    public function getReferer()
+    {
+        $request = Request::createFromGlobals();
+        var_dump($request->server->all());
+        return $request->server->get('HTTP_REFERER');
+    }
+
+    public function redirect($url)
+    {
+        RedirectResponse::create($url)->send();
     }
 }
