@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Models\Role;
 use App\Http\Models\User;
 use SMVC\Core\Kernel\CSRF;
+use SMVC\Core\Query\Query;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
-    protected $secure = array(2,3);
+    protected $secure = array(3);
 
     public function index()
     {
@@ -58,6 +59,27 @@ class UserController extends Controller
 
     public function edit()
     {
+        $id = Query::getParam('id');
+        $user = new User();
+        $role = new Role();
+        self::render([
+            'user_data' => $user->find($id)->fetch(\PDO::FETCH_ASSOC),
+            'roles' => $role->all()->fetch(\PDO::FETCH_ASSOC),
+        ], 'user/edit.php', true, 'user_control');
+    }
 
+    public function update()
+    {
+        $request = Request::createFromGlobals();
+        if(CSRF::validate($request->request->all()))
+        {
+            $user = new User();
+            $user->update($request->request->get('user_id'), array(
+                'login' => $request->request->get('login'),
+                'password' => $request->request->get('password'),
+                'email' => $request->request->get('email'),
+                'role' => $request->request->get('role'),
+            ));
+        }
     }
 }

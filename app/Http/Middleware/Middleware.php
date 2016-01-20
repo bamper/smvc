@@ -19,4 +19,12 @@ class Middleware
         if(!in_array($identity['role'], $this->secure))
             RedirectResponse::create($referer)->send();
     }
+
+    public function selfRedirect($url)
+    {
+        $redirect = new RedirectResponse($url);
+        $identity = Authenticatable::getInstance()->getIdentity();
+        if(!empty($identity['auth']))
+            $redirect->send();
+    }
 }

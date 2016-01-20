@@ -29,6 +29,7 @@ class QueryBuilder
 
     public function rixiWhere($key, $value)
     {
+        $this->where = " WHERE " . $key . " = '".$value."' ";
         $this->query .= " WHERE " . $key . " = '".$value."' ";
         return $this;
     }
@@ -75,6 +76,8 @@ class QueryBuilder
 
     public function execute()
     {
+        if(!empty($this->where))
+            $this->query_insert .= $this->where;
         $this->db->query($this->query_insert);
     }
 
@@ -87,13 +90,13 @@ class QueryBuilder
 
     private function buildQuery()
     {
-        return;
         if(!empty($this->query))
         {
             if(!empty($this->and))
                 $this->query .= $this->and;
         }
-
+        elseif(!empty($this->query_insert))
+            $this->query_insert .= $this->where;
     }
 
     public function save()
@@ -111,9 +114,21 @@ class QueryBuilder
         }
     }
 
+    public function rixiUpdate($data = array('col' => 'val'))
+    {
+        $column_value = array();
+        $this->query_insert = "UPDATE " . $this->table . " SET ";
+        foreach($data as $column => $value)
+        {
+            $column_value[] = $column. " = " . "'$value'";
+        }
+        $this->query_insert .= implode(', ', $column_value);
+        return $this;
+    }
+
     public function __toString()
     {
         $this->buildQuery();
-        return $this->query;
+        return empty($this->query) ? $this->query_insert : $this->query;
     }
 }

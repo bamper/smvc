@@ -83,16 +83,9 @@
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
-                                <a href="/user/settings/id/<?= $_identity['user_id']?>">
+                                <a href="/profile/settings/id/<?= $_identity['user_id']?>">
                                     <i class="ace-icon fa fa-cog"></i>
                                     Settings
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/user/profile/id/<?= $_identity['user_id'] ?>">
-                                    <i class="ace-icon fa fa-user"></i>
-                                    Profile
                                 </a>
                             </li>
 
@@ -110,3 +103,4 @@
             </div>
         </div>
     </div>
+    <?=$error?>

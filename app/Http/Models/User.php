@@ -4,6 +4,7 @@ namespace App\Http\Models;
 
 use App\Http\Auth\Authenticatable;
 use SMVC\Core\Rixi;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class User extends Rixi\Rixi
 {
@@ -75,5 +76,18 @@ class User extends Rixi\Rixi
     private function generateAccessToken()
     {
         return md5(uniqid());
+    }
+
+    public function update($user_id, $data = array())
+    {
+        $user_data = array(
+            'login' => $data['login'],
+            'password' => $this->cryptPassword($data['password']),
+            'role' => $data['role'],
+            'email' => $data['email']
+        );
+        $this->rixiUpdate($user_data)->rixiWhere($this->primaryKey, $user_id)->execute();
+        RedirectResponse::create('/user/index')->send();
+        return true;
     }
 }

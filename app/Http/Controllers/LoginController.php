@@ -16,6 +16,7 @@ class LoginController extends Controller
 
     public function index()
     {
+        parent::selfRedirect('/site/index');
         return self::render([], 'login/index.php');
     }
 
@@ -25,8 +26,7 @@ class LoginController extends Controller
         $request = Request::createFromGlobals();
         $identity = $auth->getIdentity();
         $redirect = new RedirectResponse('/site/index');
-
-        if(!$identity[$auth->session_auth])
+        if(empty($identity[$auth->session_auth]))
         {
             if(CSRF::validate($request->request->all()))
             {
