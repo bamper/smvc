@@ -70,16 +70,24 @@ class UserController extends Controller
 
     public function update()
     {
+        $redirect = new RedirectResponse('/user/index');
         $request = Request::createFromGlobals();
         if(CSRF::validate($request->request->all()))
         {
+            $user_data['login'] = $request->request->get('login');
+            $password = $request->request->get('password');
+            if(!empty($password))
+                $user_data['password'] = $password;
+            $user_data['email'] = $request->request->get('email');
+            $user_data['role'] = $request->request->get('role');
+
             $user = new User();
-            $user->update($request->request->get('user_id'), array(
-                'login' => $request->request->get('login'),
-                'password' => $request->request->get('password'),
-                'email' => $request->request->get('email'),
-                'role' => $request->request->get('role'),
-            ));
+            $user->update($request->request->get('user_id'), $user_data);
+            $redirect->send();
+        }
+        else
+        {
+            $redirect->send();
         }
     }
 }

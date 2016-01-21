@@ -1,0 +1,17 @@
+CREATE TABLE datagroup_role
+(
+  role_id INT PRIMARY KEY NOT NULL,
+  role_name VARCHAR(255) NOT NULL
+);
+CREATE TABLE datagroup_user
+(
+  user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  login VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  access_token VARCHAR(255),
+  role INT DEFAULT 0 NOT NULL,
+  email VARCHAR(255) DEFAULT '0',
+  date_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  date_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+CREATE UNIQUE INDEX login ON datagroup_user (login);
