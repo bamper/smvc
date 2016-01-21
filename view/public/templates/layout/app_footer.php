@@ -56,7 +56,12 @@
 <script src="/assets/js/ace.min.js"></script>
 <script src="/assets/js/validator.js"></script>
 <script>
-    $('#user_add_form').validator()
+    $('#user_add_form').validator();
+    $(document).ready(function(){
+        $("#savePassword").change(function(){
+            $("#passwordHandler").hide();
+        });
+    });
 </script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
@@ -131,7 +136,7 @@
                 }
             })
         }
-        drawPieChart(placeholder, data);
+        //drawPieChart(placeholder, data);
 
         /**
          we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
@@ -185,32 +190,32 @@
 
 
         var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});
-        $.plot("#sales-charts", [
-            { label: "Domains", data: d1 },
-            { label: "Hosting", data: d2 },
-            { label: "Services", data: d3 }
-        ], {
-            hoverable: true,
-            shadowSize: 0,
-            series: {
-                lines: { show: true },
-                points: { show: true }
-            },
-            xaxis: {
-                tickLength: 0
-            },
-            yaxis: {
-                ticks: 10,
-                min: -2,
-                max: 2,
-                tickDecimals: 3
-            },
-            grid: {
-                backgroundColor: { colors: [ "#fff", "#fff" ] },
-                borderWidth: 1,
-                borderColor:'#555'
-            }
-        });
+//        $.plot("#sales-charts", [
+//            { label: "Domains", data: d1 },
+//            { label: "Hosting", data: d2 },
+//            { label: "Services", data: d3 }
+//        ], {
+//            hoverable: true,
+//            shadowSize: 0,
+//            series: {
+//                lines: { show: true },
+//                points: { show: true }
+//            },
+//            xaxis: {
+//                tickLength: 0
+//            },
+//            yaxis: {
+//                ticks: 10,
+//                min: -2,
+//                max: 2,
+//                tickDecimals: 3
+//            },
+//            grid: {
+//                backgroundColor: { colors: [ "#fff", "#fff" ] },
+//                borderWidth: 1,
+//                borderColor:'#555'
+//            }
+//        });
 
 
         $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});

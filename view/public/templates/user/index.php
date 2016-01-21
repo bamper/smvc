@@ -12,6 +12,8 @@
                     <td>User role</td>
                     <td>User access token</td>
                     <td>User email</td>
+                    <td>Date create</td>
+                    <td>Date update</td>
                     <td width="40">Actions</td>
                 </tr>
             </thead>
@@ -23,6 +25,8 @@
                         <td><?=$user['role']?></td>
                         <td><?=$user['access_token']?></td>
                         <td><?=$user['email']?></td>
+                        <td><?=$user['date_create']?></td>
+                        <td><?=$user['date_update']?></td>
                         <td width="40" class="center" >
                             <a href="/user/edit/id/<?=$user['user_id']?>">
                                 <i class="menu-icon fa fa-pencil"></i>

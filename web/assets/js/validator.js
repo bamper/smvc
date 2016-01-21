@@ -323,8 +323,4 @@
     })
 
 }(jQuery);
-$(document).ready(function(){
-    $("#savePassword").click(function(){
-        console.log('here');
-    })
-});
+
