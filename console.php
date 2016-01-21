@@ -4,6 +4,7 @@ require_once 'vendor/autoload.php';
 
 use SMVC\Core\Registry;
 use SMVC\Core\Bootstrap;
+
 class Install
 {
     public static function setup()
