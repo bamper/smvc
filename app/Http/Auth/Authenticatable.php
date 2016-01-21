@@ -6,16 +6,34 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Authenticatable
 {
+    /**
+     * Ключ авторизации юзера. булево
+     * @var string
+     */
     public $session_auth = 'auth';
 
-    public $session_auth_save_session = 'SMVC_USER_AUTH_SAVE_SESSION';
-
+    //public $session_auth_save_session = 'SMVC_USER_AUTH_SAVE_SESSION';
+    /**
+     * Login key
+     * @var string
+     */
     public $session_user_login = 'login';
 
+    /**
+     * user_id key
+     * @var string
+     */
     public $session_user_id = 'user_id';
 
+    /**
+     * role key
+     * @var string
+     */
     public $session_user_role = 'role';
-
+    /**
+     * singletone
+     * @var null
+     */
     private static $_instance = null;
 
     public static function getInstance()
