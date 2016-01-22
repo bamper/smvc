@@ -61,7 +61,7 @@ class Authenticatable
     private function __clone(){}
 
     /**
-     * Массив идентификатора пользователя
+     * Массив идентификатора пользователя по ключу md5(логин + ip)
      * @return array
      */
     public function getIdentity()
@@ -75,6 +75,12 @@ class Authenticatable
         return array();
     }
 
+    /**
+     * Устанавливает идентификатор пользователя
+     * @param $login
+     * @param $user_id
+     * @param $role
+     */
     public function setIdentity($login, $user_id, $role)
     {
         $redis = $this->connect();
@@ -88,6 +94,9 @@ class Authenticatable
         $redis->expire($token, 3600 * 2);
     }
 
+    /**
+     * Очистка идентификации и кук. Логаут по сути
+     */
     public function destroyIdentity()
     {
         $redis = $this->connect();
