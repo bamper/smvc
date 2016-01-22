@@ -43,6 +43,10 @@ class Authenticatable
         return self::$_instance;
     }
 
+    /**
+     * Коннектор к редису. Реализовано иммено так, для поддержки подсветки PHPStorm
+     * @return \Redis
+     */
     private function connect()
     {
         $redis = new \Redis();
@@ -56,13 +60,19 @@ class Authenticatable
 
     private function __clone(){}
 
+    /**
+     * Массив идентификатора пользователя
+     * @return array
+     */
     public function getIdentity()
     {
         $redis = $this->connect();
         $request = Request::createFromGlobals();
         $auth_key = $request->cookies->get('key');
         $_identity = $redis->hGetAll($auth_key);
-        return $_identity;
+        if(md5($_identity['login'].$request->server->get('REMOTE_ADDR') == $auth_key))
+            return $_identity;
+        return array();
     }
 
     public function setIdentity($login, $user_id, $role)

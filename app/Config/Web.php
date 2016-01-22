@@ -11,7 +11,7 @@ class Web
                 'db' => [
                     'host' => 'localhost',
                     'user' => 'root',
-                    'password' => '100.pudov',
+                    'password' => '123456',
                     'dbname' => 'yii2datagroup'
                 ],
             ]
